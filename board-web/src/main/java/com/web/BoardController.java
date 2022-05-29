@@ -306,10 +306,21 @@ public class BoardController {
 		model.addAttribute("list", list);
 		return "freeBoard";
 	}
-
-	// 여기 수정하기 졸려서 못하겠음 2022 05 24
-	public String noticeWrite(FreeBoardVO bVo, HttpSession session) {
-
+	
+	@RequestMapping("/deleteAdmin")
+	public String deleteAdmin(HttpServletRequest request) {
+		String[] temp = request.getParameterValues("deleteBox");
+		int[] boardNums = new int[temp.length];
+		
+		for( int i = 0; i < temp.length; i++ ) {
+			boardNums[i] = Integer.parseInt(temp[i]);
+		}
+		
+		for( int i = 0; i < boardNums.length; i++ ) {
+			dao.deleteBoard(boardNums[i]);
+		}
+		
 		return "redirect:/board/freeBoard";
 	}
+
 }

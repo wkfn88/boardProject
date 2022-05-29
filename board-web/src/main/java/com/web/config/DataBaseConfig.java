@@ -5,6 +5,7 @@ import java.beans.PropertyVetoException;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
@@ -33,5 +34,12 @@ public class DataBaseConfig {
 	@Bean
 	public JdbcTemplate jdbcTemplate() throws PropertyVetoException {
 		return new JdbcTemplate(dataSource());
+	}
+	
+	@Bean
+	public CommonsMultipartResolver multipartResolver() {
+		CommonsMultipartResolver resolver = new CommonsMultipartResolver();
+		resolver.setMaxUploadSize(100000000);
+		return resolver;
 	}
 }
